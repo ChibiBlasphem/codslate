@@ -1,2 +1,3 @@
 import * as init from './init';
-export const commands = [init];
+import * as update from './update';
+export const commands = [init, update];

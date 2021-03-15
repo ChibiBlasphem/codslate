@@ -10,6 +10,7 @@ export type GithubRepo = {
   name: string;
   fullName: string;
   htmlUrl: string;
+  defaultBranch: string;
 };
 
 export const token = process.env['GH_TOKEN'] || process.env['GITHUB_TOKEN'];
@@ -38,13 +39,14 @@ export async function repoExists(owner: string, repo: string): Promise<boolean> 
 export async function getRepo(owner: string, repo: string): Promise<GithubRepo | undefined> {
   try {
     const {
-      data: { id, name, full_name, html_url },
+      data: { id, name, full_name, html_url, default_branch },
     } = await octokit.repos.get({ owner, repo });
     return {
       id,
       name,
       fullName: full_name,
       htmlUrl: html_url,
+      defaultBranch: default_branch,
     };
   } catch (err) {
     return undefined;
